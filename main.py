@@ -7,16 +7,16 @@ import scipy.stats as stats
 import squarify  # For Treemap
 
 
-# Step 1: Load the dataset
+# Load the dataset
 df = pd.read_csv('employees_project.csv')  # Adjust the path if needed
 print("✅ Data Loaded Successfully!\n")
 
-# Step 2: Check basic info
+# Check basic info
 print("🔎 Dataset Info:")
 print(df.info())
 print("\n")
 
-# Step 3: Summary statistics
+# Summary statistics
 print("📊 Summary Statistics (Numerical):")
 print(df.describe())
 print("\n")
@@ -25,12 +25,12 @@ print("📋 Summary Statistics (Categorical):")
 print(df.describe(include=['object']))
 print("\n")
 
-# Step 4: Check for missing values
+# Check for missing values
 print("🚨 Missing Values per Column:")
 print(df.isnull().sum())
 print("\n")
 
-# Step 5: Check for duplicate rows
+# Check for duplicate rows
 duplicates = df.duplicated().sum()
 print(f"🔁 Number of Duplicate Rows: {duplicates}\n")
 
@@ -39,29 +39,29 @@ if duplicates > 0:
     df = df.drop_duplicates()
     print("✅ Duplicates removed.\n")
 
-# Step 6: Convert columns to appropriate data types
+# Convert columns to appropriate data types
 categorical_cols = ['Department', 'Gender', 'JobLevel']
 for col in categorical_cols:
     df[col] = df[col].astype('category')
 
 print("✅ Data types corrected for categorical columns.\n")
 
-# Step 7: Final check
+# Final check
 print("✅ Final Dataset Info:")
 print(df.info())
 
-# Step 8: Save the cleaned data (optional)
+# Save the cleaned data (optional)
 df.to_csv('employees_project_cleaned.csv', index=False)
 print("\n📂 Cleaned file saved as 'employees_project_cleaned.csv'")
 
 # # # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## # #
 # Data Exploration Analysis EDA
 
-# Step 1: Load the cleaned data
+# Load the cleaned data
 df = pd.read_csv('employees_project_cleaned.csv')
 print("✅ Cleaned Data Loaded!\n")
 
-# Step 2: Overview of the dataset
+# Overview of the dataset
 print("🔎 Dataset Shape (Rows, Columns):", df.shape)
 print("\n")
 
@@ -69,33 +69,33 @@ print("📋 Columns List:")
 print(df.columns.tolist())
 print("\n")
 
-# Step 3: Unique values in categorical columns
+# Unique values in categorical columns
 categorical_cols = ['Department', 'Gender', 'JobLevel']
 
 for col in categorical_cols:
     print(f"🧹 Unique values in {col}: {df[col].unique()}")
     print("\n")
 
-# Step 4: Distribution of Numerical Features
+# Distribution of Numerical Features
 print("📊 Distribution of Numerical Columns:\n")
 print(df.describe())
 
-# Step 5: Count of Employees in each Department
+# Count of Employees in each Department
 print("🏢 Employee Count per Department:")
 print(df['Department'].value_counts())
 print("\n")
 
-# Step 6: Count of Employees by Gender
+# Count of Employees by Gender
 print("👨‍🦰👩 Gender Distribution:")
 print(df['Gender'].value_counts())
 print("\n")
 
-# Step 7: Correlation Matrix
+# Correlation Matrix
 print("🔗 Correlation between Numerical Columns:\n")
 print(df.corr())
 print("\n")
 
-# Step 8: Quick Visualizations
+# Quick Visualizations
 
 # Bar Plot: Employee count per department
 plt.figure(figsize=(8,5))
@@ -119,11 +119,11 @@ plt.show()
 # # # # # # # # # ## ## ## ## ## ## ## ## ## ## ## # # #
 # Full Statistical Analysis
 
-# Step 1: Load the cleaned data
+# Load the cleaned data
 df = pd.read_csv('employees_project_cleaned.csv')
 print("✅ Cleaned Data Loaded for Statistics!\n")
 
-# Step 2: Normal Distribution Analysis (e.g., Salary)
+# Normal Distribution Analysis (e.g., Salary)
 salary_mean = df['Salary'].mean()
 salary_std = df['Salary'].std()
 
@@ -137,7 +137,7 @@ plt.xlabel('Salary')
 plt.ylabel('Frequency')
 plt.show()
 
-# Step 3: Confidence Interval for Salary (95%)
+# Confidence Interval for Salary (95%)
 confidence = 0.95
 n = len(df['Salary'])
 m = salary_mean
@@ -146,7 +146,7 @@ h = se * stats.t.ppf((1 + confidence) / 2, n-1)
 
 print(f"🎯 95% Confidence Interval for Salary: ({m-h:.2f}, {m+h:.2f})\n")
 
-# Step 4: Binomial Distribution Example (e.g., Gender Split: Male or not Male)
+# Binomial Distribution Example (e.g., Gender Split: Male or not Male)
 # Encoding 'Male' as 1, others as 0
 df['Male_Flag'] = np.where(df['Gender'] == 'Male', 1, 0)
 
@@ -157,7 +157,7 @@ p_male = n_male / n_total
 
 print(f"👨 Probability of Male Employee: {p_male:.2f}\n")
 
-# Step 5: Poisson Distribution Example (Events like "High Performance Scores")
+# Poisson Distribution Example (Events like "High Performance Scores")
 # Define high performance as PerformanceScore > 8
 high_perf = (df['PerformanceScore'] > 8).sum()
 
